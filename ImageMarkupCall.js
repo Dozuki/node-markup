@@ -33,7 +33,7 @@ function processArgs() {
       usage();
    }
 
-   var shadows = 
+   var shadows =
       typeof(argv.shadows) == 'undefined'
       ? false
       : argv.shadows == 'true' || argv.shadows == true;
@@ -60,14 +60,14 @@ function processArgs() {
          stroke = Int(argv.stroke);
       }
 
-      convertMarkupToJSON(processJSON, argv.markup, argv.input, argv.output);
+      convertMarkupToJSON(processJSON, argv.markup, argv.input, argv.output, argv.format);
    } else {
       console.error('Invalid uage.');
       usage(-1);
    }
 }
 
-function convertMarkupToJSON(callback, markup, infile, outfile) {
+function convertMarkupToJSON(callback, markup, infile, outfile, format) {
    var json = {};
 
    var GM = require('gm');
@@ -191,6 +191,8 @@ function convertMarkupToJSON(callback, markup, infile, outfile) {
 
       json['sourceFile'] = infile;
       json['destinationFile'] = outfile;
+      json['format'] = format || 'jpeg';
+
 
       if (stroke != null) {
          json.instructions.strokeWidth = stroke;
