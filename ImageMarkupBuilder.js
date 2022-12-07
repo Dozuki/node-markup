@@ -252,8 +252,9 @@ function ImageMarkupBuilder(fabricCanvas) {
     */
    function writeCanvas(callback) {
       fabricCanvas.renderAll();
-      var outstream = require('fs').createWriteStream(innerJSON.destinationFile),
-      stream = fabricCanvas.createJPEGStream({
+      var outstream = require('fs').createWriteStream(innerJSON.destinationFile);
+      var methodName = innerJSON.format === 'png' ? 'createPNGStream' : 'createJPEGStream';
+      var stream = fabricCanvas[methodName]({
          quality: 93,
          progressive: true
       });
